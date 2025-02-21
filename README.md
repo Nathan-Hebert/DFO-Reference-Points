@@ -3,7 +3,7 @@ Code for the time-varying reference points CSRF project.
 
 ## Scripts  
 
-- `ShinyApp_240108.R` – Runs the Shiny app. A sample herring CSV is available in the `Data` folder.  
+- `ShinyApp_240108.R` – Runs the Shiny app.
 - `Generate_OM_Simulated_Stocks_241115.R` – Generates OMs using Pons et al. inputs from the `Data` folder.  
 - `runMSE_250124.R` – Runs closed-loop simulations for an OM and saves results, including figures.  
 - `MSE_figs_combined_250124.R` – Combines results from multiple OMs into six-panel figures.  
