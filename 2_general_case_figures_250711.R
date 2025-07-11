@@ -232,8 +232,8 @@ ggsave(paste0(getwd(),"/figs/general case/sel_general_combined.jpeg"),
 # Create individual plots of M vs RPs with mat, rec, sel, and waa fixed at base... 
 # values are relative to base
 plots <- list()
-ylim <- list(ymin = c(0.01, 0.01, 0.42, 0.01, 0.42, 0.42, 0.01),
-             ymax = c(4, 4, 1.4, 4, 1.4, 1.4, 4))
+ylim <- list(ymin = c(0.01, 0.01, 0.52, 0.01, 0.52, 0.52, 0.01, 0.52),
+             ymax = c(4, 4, 1.7, 4, 1.7, 1.7, 4, 1.7))
 for (i in 1:length(ylabels)) {
   plots[[RP_names[i]]] <- relative_effects_plot(col_name = RP_names[i], 
                                                 vary = "M", xlab = "M", 
