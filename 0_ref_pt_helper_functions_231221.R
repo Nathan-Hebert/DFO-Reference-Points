@@ -4,7 +4,7 @@
 ################################################################################
 
 # Load necessary libraries
-library(dplyr); library(MARS)
+library(dplyr)
 
 # Function returns the length of an organism at a specific time t using the 
 # von Bertalanffy growth equation, which takes parameters for the organism's 
@@ -492,10 +492,12 @@ sim_LRP_SSB0 <- function(OM, MSE, DF, srr = mysrr)
   
   # Calculate the LRPs and USRs for each sim-projection year combo, and calculate
   # the first 5 years SSB0 for each sim
+  alphas <- c()
+  betas <- c()
   RPs <- data.frame()
   for(i in 1:100)
   {
-    # Calculate alpha and beta using the mean phi0 from first 5 yrs
+    # Calculate alpha and beta using the mean phi0 from first 5 yrs... then save
     R0 <- OM@cpars$R0[i]
     h <- mean(MSE@RefPoint$ByYear$h[1,1:5])
     if(srr == 'beverton-holt'){
@@ -506,7 +508,9 @@ sim_LRP_SSB0 <- function(OM, MSE, DF, srr = mysrr)
       alpha <- ((5*h)^1.25)/(mean_phi0_first5)
       beta <- log(alpha*mean_phi0_first5)/(R0*mean_phi0_first5)
     }
-    
+    alphas <- c(alphas, alpha)
+    betas <- c(betas, beta)
+    print(alphas)
     # Calculate the LRPs and USRs for each projection year
     for(y in 1:OM@proyears)
     {
@@ -535,7 +539,7 @@ sim_LRP_SSB0 <- function(OM, MSE, DF, srr = mysrr)
     }
   }
   
-  # Add correct sim's LRPs, USRs, and SSB0 to DF
+  # Add correct sim's LRPs, USRs, FMSYs, alphas, betas, and SSB0s to DF
   set.seed(OM@seed)
   sim_used <- sample(1:100, OM@nsim)
   for (i in 1:length(sim_used)){
@@ -547,9 +551,18 @@ sim_LRP_SSB0 <- function(OM, MSE, DF, srr = mysrr)
         RPs$SSB_MSY[RPs$Sim == sim_used[i]&RPs$Yr == y&RPs$`Time Period`== "Last5"]/1000
       DF[DF$Yr == y&DF$Sim == i, c("LRP_EntireTS","USR_EntireTS")] <- 
         RPs$SSB_MSY[RPs$Sim == sim_used[i]&RPs$Yr == y&RPs$`Time Period`== "EntireTS"]/1000
+      
+      DF[DF$Yr == y&DF$Sim == i, "FMSY_First5"] <- 
+        RPs$F_MSY[RPs$Sim == sim_used[i]&RPs$Yr == y&RPs$`Time Period`== "First5"]
+      DF[DF$Yr == y&DF$Sim == i, "FMSY_Last5"] <- 
+        RPs$F_MSY[RPs$Sim == sim_used[i]&RPs$Yr == y&RPs$`Time Period`== "Last5"]
+      DF[DF$Yr == y&DF$Sim == i, "FMSY_EntireTS"] <- 
+        RPs$F_MSY[RPs$Sim == sim_used[i]&RPs$Yr == y&RPs$`Time Period`== "EntireTS"]
     }
     DF$ssb0_first5_sim[DF$Sim == i] <- 
       RPs$SSB_0[RPs$Sim == sim_used[i]&RPs$Yr == 1&RPs$`Time Period`== "First5"]/1000
+    DF$alpha_sim[DF$Sim == i] <- alphas[sim_used[i]]
+    DF$beta_sim[DF$Sim == i] <- betas[sim_used[i]]
   }
   DF[ , grep("LRP", names(DF))] <- DF[ , grep("LRP", names(DF))]*0.4
   DF[ , grep("USR", names(DF))] <- DF[ , grep("USR", names(DF))]*0.8

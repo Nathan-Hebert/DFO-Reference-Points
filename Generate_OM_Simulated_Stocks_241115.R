@@ -9,7 +9,7 @@ rm(list = ls())
 # Load necessary libraries
 library(ggplot2)
 library(RTMB)
-source("0_ref_pt_helper_functions_231221.R")
+source("R:/Science/Population Ecology Division/Shared/REFPT/REFPT_R_Project/0_ref_pt_helper_functions_231221.R")
 source('OMftns_240820.R')
 
 # Choose seed, stock, and number of sims to generate OM for
@@ -43,7 +43,7 @@ F_final <- 0.15 # Final historical F
 #################################Setup inputs###################################
 
 # Read in necessary inputs
-D <- read.csv("Data/Pons_inputs.csv")
+D <- read.csv("R:/Science/Population Ecology Division/Shared/REFPT/REFPT_R_Project/data/Pons_inputs.csv")
 pons_dat <- D[, stock]; names(pons_dat) <- D$Parameter
 assign(names(pons_dat)[1], pons_dat[1])
 
