@@ -3,7 +3,7 @@ Code for the reference points CSRF project.
 
 ## R scripts  
 
-- `ShinyApp_240108.R` – Runs the Shiny app.
+- `app.R` – Runs the Shiny app.
 - `2_general_case_figures_250711.R` - Generates the generalized life-history figures for maturity-at-age, weight-at-age, etc. using the Pons et al. inputs from the `Data` folder.
 - `Generate_OM_Simulated_Stocks_241115.R` – Generates an OM using the Pons et al. inputs from the `Data` folder.
 - `projection_assumption_plots_250630.R` - Generates plots illustrating the productivity assumptions used by an OM. 
