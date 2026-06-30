@@ -39,7 +39,7 @@ stock–recruit relationship is assumed, you can assume a constant recruitment v
 
 <p>
 The source code is available on GitHub 
-<a href='https://github.com/Nathan-Hebert/DFO-Reference-Points/blob/main/ShinyApp_240108.R' target='_blank'>
+<a href='https://github.com/Nathan-Hebert/DFO-Reference-Points/blob/main/app.R' target='_blank'>
 here</a>.
 </p>"
 
